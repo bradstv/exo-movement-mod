@@ -1,5 +1,5 @@
 # Exo Movement Mod
-A scuffed exo movement mod for the H1-Mod client
+A scuffed exo movement mod for the [H1-Mod](https://github.com/h1-mod/h1-mod) client
 
 ### Release
 Will provide a release soon™
