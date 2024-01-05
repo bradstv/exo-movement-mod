@@ -1,0 +1,5 @@
+*.dcache
+*.ff
+*.pak
+*.bat
+recipes/

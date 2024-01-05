@@ -193,7 +193,8 @@ boost_dash()
 
     if(self.boost["dash_count"] >= 2)
     {
-        self playsound("mp_exo_bat_empty");
+        thread common_scripts\utility::play_sound_in_space("mp_exo_bat_empty", self.origin);
+        //self playsound("mp_exo_bat_empty");
         return;
     }
         
@@ -204,12 +205,12 @@ boost_dash()
     self thread boost_dash_fx();
 
     multiplier = 250;
-    z_offset = (0, 0, 200);
+    z_offset = (0, 0, 150);
     x_y_multiplier = 400;
     stick_input = self.boost["stick_input"];
-    half_velo = self.boost["player_vel"] * 0.5;
+    player_vel = self.boost["player_vel"];
 
-    modified_velo = half_velo + stick_input * multiplier + z_offset;
+    modified_velo = player_vel + stick_input * multiplier + z_offset;
     velo_normalized = vectornormalize(modified_velo) * x_y_multiplier;
     final_velo = (velo_normalized[0], velo_normalized[1], modified_velo[2]);
 
@@ -224,7 +225,8 @@ boost_dash()
 boost_dash_fx()
 {
     earthquake( 0.2, 1, self.origin, 150 );
-    self playlocalsound("pc_boost_dodge");
+    //self playlocalsound("pc_boost_dodge");
+    thread common_scripts\utility::play_sound_in_space("pc_boost_dodge", self.origin);
     self playrumbleonentity( "damage_heavy" );
 }
 
@@ -246,9 +248,6 @@ boost_jump()
     self endon("death");
     self endon("disable_exo");
 
-    if(self.boost["in_slam"])
-        return;
-
     self.boost["in_jump"] = 1;
 
     self thread boost_jump_fx();
@@ -262,7 +261,7 @@ boost_jump()
             z = 0;
 
         z = z + 150;
-        self setvelocity( (velo[0], velo[1], z) );
+        self setvelocity((velo[0], velo[1], z));
         wait 0.05;
     }
 
@@ -281,14 +280,16 @@ boost_jump_fx()
         playfx(common_scripts\utility::getfx("high_jump_ground"), ground);
     
     playfxontag(common_scripts\utility::getfx("high_jump_view_air"), self, "j_hip_ri");
-    self playsound("pc_boost_jump");
+    //self playsound("pc_boost_jump");
+    thread common_scripts\utility::play_sound_in_space("pc_boost_jump", self.origin);
     self playrumbleonentity("damage_heavy");
 }
 
 boost_land_fx()
 {
     playfx(common_scripts\utility::getfx("high_jump_exo_land_medium"), self.origin);
-    self playsound("pc_boost_land");
+    //self playsound("pc_boost_land");
+    thread common_scripts\utility::play_sound_in_space("pc_boost_land", self.origin);
     self playrumbleonentity("damage_heavy");
 }
 
@@ -300,7 +301,8 @@ boost_slam()
 
     if(self getdistancetoground() < 120)
     {
-        self playlocalsound("mp_exo_bat_empty");
+        thread common_scripts\utility::play_sound_in_space("mp_exo_bat_empty", self.origin);
+        //self playlocalsound("mp_exo_bat_empty");
         return;
     }
 
@@ -338,7 +340,8 @@ boost_slam_fx()
     earthquake(0.3, 1, self.origin, 150);
     playfx(common_scripts\utility::getfx("exo_slam_impact"), self.origin);
     self setclientomnvar("ui_hud_shake", 1);
-    self playsound("pc_boost_land");
+    //self playsound("pc_boost_land");
+    thread common_scripts\utility::play_sound_in_space("pc_boost_land", self.origin);
     self playrumbleonentity("damage_heavy");
 }
 
