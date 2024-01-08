@@ -83,7 +83,7 @@ onPlayerSpawnedOnce()
     self endon("disconnect");
 
     self waittill("spawned_player");
-    self freezecontrols(0);
+    //self freezecontrols(0);
     self thread monitor_stance_button();
 }
 
